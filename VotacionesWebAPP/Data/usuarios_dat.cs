@@ -4,24 +4,24 @@ using System.Data;
 
 namespace Data
 {
-    public class tbl_no_votantes
+    public class usuarios_dat
     {
         // Create an instance of the Persistence class to handle database connections.
         Persistence objPer = new Persistence();
 
-        // Method to show records from the usuarios_no_votantes table.
-        public DataSet showUsuariosNoVotantes()
+        // Method to show users from the database.
+        public DataSet showUsuarios()
         {
             // Create a MySQL data adapter.
             MySqlDataAdapter objAdapter = new MySqlDataAdapter();
             // Create a DataSet to store the results of the query.
             DataSet objData = new DataSet();
-            // Create a MySQL command to select records using a stored procedure.
+            // Create a MySQL command to select users using a stored procedure.
             MySqlCommand objSelectCmd = new MySqlCommand();
             // Set the connection of the command using the openConnection() method from Persistence.
             objSelectCmd.Connection = objPer.openConnection();
             // Specify the name of the stored procedure to execute.
-            objSelectCmd.CommandText = "spSelectUsuariosNoVotantes"; // Adjust this to your stored procedure name.
+            objSelectCmd.CommandText = "spSelectUsuarios"; // Adjust this to your stored procedure name.
             // Indicate that this is a stored procedure.
             objSelectCmd.CommandType = CommandType.StoredProcedure;
             // Set the select command of the data adapter.
@@ -30,28 +30,26 @@ namespace Data
             objAdapter.Fill(objData);
             // Close the connection after obtaining the data.
             objPer.closeConnection();
-            // Return the DataSet containing the records.
+            // Return the DataSet containing the users.
             return objData;
         }
 
-        // Method to save a new record in the usuarios_no_votantes table.
-        public bool saveUsuarioNoVotante(string nombre, string apellido, string cedula, string opcion)
+        // Method to save a new user.
+        public bool saveUsuario(string correo, string contrasena)
         {
             // Initialize a variable to indicate if the operation was successful.
             bool executed = false;
             int row;
 
-            // Create a MySQL command to insert a new record using a stored procedure.
+            // Create a MySQL command to insert a new user using a stored procedure.
             MySqlCommand objSelectCmd = new MySqlCommand();
             objSelectCmd.Connection = objPer.openConnection();
-            objSelectCmd.CommandText = "spInsertUsuariosNoVotantes"; // Adjust this to your stored procedure name.
+            objSelectCmd.CommandText = "spInsertUsuario"; // Adjust this to your stored procedure name.
             objSelectCmd.CommandType = CommandType.StoredProcedure;
 
-            // Add parameters to the command to pass the values of the record.
-            objSelectCmd.Parameters.Add("p_nombre", MySqlDbType.VarString).Value = nombre;
-            objSelectCmd.Parameters.Add("p_apellido", MySqlDbType.VarString).Value = apellido;
-            objSelectCmd.Parameters.Add("p_cedula", MySqlDbType.VarString).Value = cedula;
-            objSelectCmd.Parameters.Add("p_opcion", MySqlDbType.VarString).Value = opcion;
+            // Add parameters to the command to pass the values of the user.
+            objSelectCmd.Parameters.Add("p_correo", MySqlDbType.VarString).Value = correo;
+            objSelectCmd.Parameters.Add("p_contrasena", MySqlDbType.VarString).Value = contrasena;
 
             try
             {
@@ -73,24 +71,22 @@ namespace Data
             return executed;
         }
 
-        // Method to update a record in the usuarios_no_votantes table.
-        public bool updateUsuarioNoVotante(int id, string nombre, string apellido, string cedula, string opcion)
+        // Method to update a user.
+        public bool updateUsuario(int id, string correo, string contrasena)
         {
             bool executed = false;
             int row;
 
-            // Create a MySQL command to update a record using a stored procedure.
+            // Create a MySQL command to update a user using a stored procedure.
             MySqlCommand objSelectCmd = new MySqlCommand();
             objSelectCmd.Connection = objPer.openConnection();
-            objSelectCmd.CommandText = "spUpdateUsuariosNoVotantes"; // Adjust this to your stored procedure name.
+            objSelectCmd.CommandText = "spUpdateUsuario"; // Adjust this to your stored procedure name.
             objSelectCmd.CommandType = CommandType.StoredProcedure;
 
-            // Add parameters to the command to pass the values of the record.
+            // Add parameters to the command to pass the values of the user.
             objSelectCmd.Parameters.Add("p_id", MySqlDbType.Int32).Value = id;
-            objSelectCmd.Parameters.Add("p_nombre", MySqlDbType.VarString).Value = nombre;
-            objSelectCmd.Parameters.Add("p_apellido", MySqlDbType.VarString).Value = apellido;
-            objSelectCmd.Parameters.Add("p_cedula", MySqlDbType.VarString).Value = cedula;
-            objSelectCmd.Parameters.Add("p_opcion", MySqlDbType.VarString).Value = opcion;
+            objSelectCmd.Parameters.Add("p_correo", MySqlDbType.VarString).Value = correo;
+            objSelectCmd.Parameters.Add("p_contrasena", MySqlDbType.VarString).Value = contrasena;
 
             try
             {
@@ -108,16 +104,16 @@ namespace Data
             return executed;
         }
 
-        // Method to delete a record from the usuarios_no_votantes table.
-        public bool deleteUsuarioNoVotante(int id)
+        // Method to delete a user.
+        public bool deleteUsuario(int id)
         {
             bool executed = false;
             int row;
 
-            // Create a MySQL command to delete a record using a stored procedure.
+            // Create a MySQL command to delete a user using a stored procedure.
             MySqlCommand objSelectCmd = new MySqlCommand();
             objSelectCmd.Connection = objPer.openConnection();
-            objSelectCmd.CommandText = "spDeleteUsuariosNoVotantes"; // Adjust this to your stored procedure name.
+            objSelectCmd.CommandText = "spDeleteUsuario"; // Adjust this to your stored procedure name.
             objSelectCmd.CommandType = CommandType.StoredProcedure;
             objSelectCmd.Parameters.Add("p_id", MySqlDbType.Int32).Value = id;
 

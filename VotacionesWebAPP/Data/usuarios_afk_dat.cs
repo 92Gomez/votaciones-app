@@ -4,13 +4,13 @@ using System.Data;
 
 namespace Data
 {
-    public class tbl_estado_vida
+    public class usuarios_afk_dat
     {
         // Create an instance of the Persistence class to handle database connections.
         Persistence objPer = new Persistence();
 
-        // Method to show records from the tbl_estado_vida table.
-        public DataSet showEstadoVida()
+        // Method to show records from the Usuarios_afk table.
+        public DataSet showUsuariosAfk()
         {
             // Create a MySQL data adapter.
             MySqlDataAdapter objAdapter = new MySqlDataAdapter();
@@ -21,7 +21,7 @@ namespace Data
             // Set the connection of the command using the openConnection() method from Persistence.
             objSelectCmd.Connection = objPer.openConnection();
             // Specify the name of the stored procedure to execute.
-            objSelectCmd.CommandText = "spSelectEstadoVida"; // Adjust this to your stored procedure name.
+            objSelectCmd.CommandText = "spSelectUsuariosAfk"; // Adjust this to your stored procedure name.
             // Indicate that this is a stored procedure.
             objSelectCmd.CommandType = CommandType.StoredProcedure;
             // Set the select command of the data adapter.
@@ -34,8 +34,8 @@ namespace Data
             return objData;
         }
 
-        // Method to save a new record in the tbl_estado_vida table.
-        public bool saveEstadoVida(string nombre, string apellido, string cedula, string estado, string fechaDefuncion)
+        // Method to save a new record in the Usuarios_afk table.
+        public bool saveUsuarioAfk(string correo, string contrasena)
         {
             // Initialize a variable to indicate if the operation was successful.
             bool executed = false;
@@ -44,15 +44,12 @@ namespace Data
             // Create a MySQL command to insert a new record using a stored procedure.
             MySqlCommand objSelectCmd = new MySqlCommand();
             objSelectCmd.Connection = objPer.openConnection();
-            objSelectCmd.CommandText = "spInsertEstadoVida"; // Adjust this to your stored procedure name.
+            objSelectCmd.CommandText = "spInsertUsuariosAfk"; // Adjust this to your stored procedure name.
             objSelectCmd.CommandType = CommandType.StoredProcedure;
 
             // Add parameters to the command to pass the values of the record.
-            objSelectCmd.Parameters.Add("p_nombre", MySqlDbType.VarString).Value = nombre;
-            objSelectCmd.Parameters.Add("p_apellido", MySqlDbType.VarString).Value = apellido;
-            objSelectCmd.Parameters.Add("p_cedula", MySqlDbType.VarString).Value = cedula;
-            objSelectCmd.Parameters.Add("p_estado", MySqlDbType.VarString).Value = estado;
-            objSelectCmd.Parameters.Add("p_fecha_defuncion", MySqlDbType.VarString).Value = fechaDefuncion;
+            objSelectCmd.Parameters.Add("p_correo", MySqlDbType.VarString).Value = correo;
+            objSelectCmd.Parameters.Add("p_contrasena", MySqlDbType.VarString).Value = contrasena;
 
             try
             {
@@ -74,8 +71,8 @@ namespace Data
             return executed;
         }
 
-        // Method to update a record in the tbl_estado_vida table.
-        public bool updateEstadoVida(int id, string nombre, string apellido, string cedula, string estado, string fechaDefuncion)
+        // Method to update a record in the Usuarios_afk table.
+        public bool updateUsuarioAfk(int id, string correo, string contrasena)
         {
             bool executed = false;
             int row;
@@ -83,16 +80,13 @@ namespace Data
             // Create a MySQL command to update a record using a stored procedure.
             MySqlCommand objSelectCmd = new MySqlCommand();
             objSelectCmd.Connection = objPer.openConnection();
-            objSelectCmd.CommandText = "spUpdateEstadoVida"; // Adjust this to your stored procedure name.
+            objSelectCmd.CommandText = "spUpdateUsuariosAfk"; // Adjust this to your stored procedure name.
             objSelectCmd.CommandType = CommandType.StoredProcedure;
 
             // Add parameters to the command to pass the values of the record.
             objSelectCmd.Parameters.Add("p_id", MySqlDbType.Int32).Value = id;
-            objSelectCmd.Parameters.Add("p_nombre", MySqlDbType.VarString).Value = nombre;
-            objSelectCmd.Parameters.Add("p_apellido", MySqlDbType.VarString).Value = apellido;
-            objSelectCmd.Parameters.Add("p_cedula", MySqlDbType.VarString).Value = cedula;
-            objSelectCmd.Parameters.Add("p_estado", MySqlDbType.VarString).Value = estado;
-            objSelectCmd.Parameters.Add("p_fecha_defuncion", MySqlDbType.VarString).Value = fechaDefuncion;
+            objSelectCmd.Parameters.Add("p_correo", MySqlDbType.VarString).Value = correo;
+            objSelectCmd.Parameters.Add("p_contrasena", MySqlDbType.VarString).Value = contrasena;
 
             try
             {
@@ -110,8 +104,8 @@ namespace Data
             return executed;
         }
 
-        // Method to delete a record from the tbl_estado_vida table.
-        public bool deleteEstadoVida(int id)
+        // Method to delete a record from the Usuarios_afk table.
+        public bool deleteUsuarioAfk(int id)
         {
             bool executed = false;
             int row;
@@ -119,7 +113,7 @@ namespace Data
             // Create a MySQL command to delete a record using a stored procedure.
             MySqlCommand objSelectCmd = new MySqlCommand();
             objSelectCmd.Connection = objPer.openConnection();
-            objSelectCmd.CommandText = "spDeleteEstadoVida"; // Adjust this to your stored procedure name.
+            objSelectCmd.CommandText = "spDeleteUsuariosAfk"; // Adjust this to your stored procedure name.
             objSelectCmd.CommandType = CommandType.StoredProcedure;
             objSelectCmd.Parameters.Add("p_id", MySqlDbType.Int32).Value = id;
 

@@ -4,7 +4,7 @@ using System.Data;
 
 namespace Data
 {
-    public class tbl_votos
+    public class votos_dat
     {
         // Create an instance of the Persistence class to manage the database connection.
         Persistence objPer = new Persistence();

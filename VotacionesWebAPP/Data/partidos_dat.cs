@@ -4,24 +4,24 @@ using System.Data;
 
 namespace Data
 {
-    public class tbl_usuarios_afk
+    public class partidos_dat
     {
         // Create an instance of the Persistence class to handle database connections.
         Persistence objPer = new Persistence();
 
-        // Method to show records from the Usuarios_afk table.
-        public DataSet showUsuariosAfk()
+        // Method to show parties from the database.
+        public DataSet showPartidos()
         {
             // Create a MySQL data adapter.
             MySqlDataAdapter objAdapter = new MySqlDataAdapter();
             // Create a DataSet to store the results of the query.
             DataSet objData = new DataSet();
-            // Create a MySQL command to select records using a stored procedure.
+            // Create a MySQL command to select parties using a stored procedure.
             MySqlCommand objSelectCmd = new MySqlCommand();
             // Set the connection of the command using the openConnection() method from Persistence.
             objSelectCmd.Connection = objPer.openConnection();
             // Specify the name of the stored procedure to execute.
-            objSelectCmd.CommandText = "spSelectUsuariosAfk"; // Adjust this to your stored procedure name.
+            objSelectCmd.CommandText = "spSelectPartidos"; // Adjust this to your stored procedure name.
             // Indicate that this is a stored procedure.
             objSelectCmd.CommandType = CommandType.StoredProcedure;
             // Set the select command of the data adapter.
@@ -30,26 +30,26 @@ namespace Data
             objAdapter.Fill(objData);
             // Close the connection after obtaining the data.
             objPer.closeConnection();
-            // Return the DataSet containing the records.
+            // Return the DataSet containing the parties.
             return objData;
         }
 
-        // Method to save a new record in the Usuarios_afk table.
-        public bool saveUsuarioAfk(string correo, string contrasena)
+        // Method to save a new party.
+        public bool savePartido(string nombrePartido, string descripcion)
         {
             // Initialize a variable to indicate if the operation was successful.
             bool executed = false;
             int row;
 
-            // Create a MySQL command to insert a new record using a stored procedure.
+            // Create a MySQL command to insert a new party using a stored procedure.
             MySqlCommand objSelectCmd = new MySqlCommand();
             objSelectCmd.Connection = objPer.openConnection();
-            objSelectCmd.CommandText = "spInsertUsuariosAfk"; // Adjust this to your stored procedure name.
+            objSelectCmd.CommandText = "spInsertPartido"; // Adjust this to your stored procedure name.
             objSelectCmd.CommandType = CommandType.StoredProcedure;
 
-            // Add parameters to the command to pass the values of the record.
-            objSelectCmd.Parameters.Add("p_correo", MySqlDbType.VarString).Value = correo;
-            objSelectCmd.Parameters.Add("p_contrasena", MySqlDbType.VarString).Value = contrasena;
+            // Add parameters to the command to pass the values of the party.
+            objSelectCmd.Parameters.Add("p_nombre_partido", MySqlDbType.VarString).Value = nombrePartido;
+            objSelectCmd.Parameters.Add("p_descripcion", MySqlDbType.Text).Value = descripcion;
 
             try
             {
@@ -71,22 +71,22 @@ namespace Data
             return executed;
         }
 
-        // Method to update a record in the Usuarios_afk table.
-        public bool updateUsuarioAfk(int id, string correo, string contrasena)
+        // Method to update a party.
+        public bool updatePartido(int id, string nombrePartido, string descripcion)
         {
             bool executed = false;
             int row;
 
-            // Create a MySQL command to update a record using a stored procedure.
+            // Create a MySQL command to update a party using a stored procedure.
             MySqlCommand objSelectCmd = new MySqlCommand();
             objSelectCmd.Connection = objPer.openConnection();
-            objSelectCmd.CommandText = "spUpdateUsuariosAfk"; // Adjust this to your stored procedure name.
+            objSelectCmd.CommandText = "spUpdatePartido"; // Adjust this to your stored procedure name.
             objSelectCmd.CommandType = CommandType.StoredProcedure;
 
-            // Add parameters to the command to pass the values of the record.
+            // Add parameters to the command to pass the values of the party.
             objSelectCmd.Parameters.Add("p_id", MySqlDbType.Int32).Value = id;
-            objSelectCmd.Parameters.Add("p_correo", MySqlDbType.VarString).Value = correo;
-            objSelectCmd.Parameters.Add("p_contrasena", MySqlDbType.VarString).Value = contrasena;
+            objSelectCmd.Parameters.Add("p_nombre_partido", MySqlDbType.VarString).Value = nombrePartido;
+            objSelectCmd.Parameters.Add("p_descripcion", MySqlDbType.Text).Value = descripcion;
 
             try
             {
@@ -104,16 +104,16 @@ namespace Data
             return executed;
         }
 
-        // Method to delete a record from the Usuarios_afk table.
-        public bool deleteUsuarioAfk(int id)
+        // Method to delete a party (if needed).
+        public bool deletePartido(int id)
         {
             bool executed = false;
             int row;
 
-            // Create a MySQL command to delete a record using a stored procedure.
+            // Create a MySQL command to delete a party using a stored procedure.
             MySqlCommand objSelectCmd = new MySqlCommand();
             objSelectCmd.Connection = objPer.openConnection();
-            objSelectCmd.CommandText = "spDeleteUsuariosAfk"; // Adjust this to your stored procedure name.
+            objSelectCmd.CommandText = "spDeletePartido"; // Adjust this to your stored procedure name.
             objSelectCmd.CommandType = CommandType.StoredProcedure;
             objSelectCmd.Parameters.Add("p_id", MySqlDbType.Int32).Value = id;
 
